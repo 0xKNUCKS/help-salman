@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 messages-container" style="max-height: 70vh; overflow-y: auto;">
+    {% for note in notes %}
+    <div class="post-it p-6 min-h-[200px] flex flex-col justify-between">
+        <div class="pt-6">
+            <p class="text-gray-800 text-sm leading-relaxed font-medium mb-4">"{{ note.message }}"</p>
+        </div>
+        <div class="flex justify-between items-end">
+            <div class="text-xs text-gray-700">
+                <div class="font-bold">— {{ note.sender_name }}</div>
+            </div>
+            <div class="text-xs text-gray-600">
+                {{ note.created_at.format("%b %d, %Y") }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if notes.is_empty() %}
+<div class="text-center py-16 text-gray-500">
+    <div class="text-6xl mb-6">📝</div>
+    <h3 class="text-2xl font-bold mb-4">No messages yet</h3>
+    <p class="text-lg">Be the first to write a note for Salman!</p>
+    <a href="/" class="inline-block mt-6 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+        Write a Note
+    </a>
+</div>
+{% endif %}

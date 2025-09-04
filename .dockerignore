@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.env
+.env.local
+.env.*.local
+.git
+.gitignore
+README.md
+EXAMPLES.md
+CONVEX_SETUP.md
+CAROUSEL_README.md
+netlify-logs.txt
+.DS_Store
+Thumbs.db

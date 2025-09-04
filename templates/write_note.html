@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="FrontPage Express 2.0">
+    <meta name="author" content="Webmaster Salman">
+    <meta name="keywords" content="salman, notes, guestbook, support, 90s website">
+    <meta name="description" content="Leave a note for Salman - Interactive guestbook experience">
+    <title>Write a Note - Support Salman</title>
+    <!-- Optimized for Internet Explorer 4.0+ -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/pannable.js"></script>
+    <script src="/static/retro-sounds.js"></script>
+    <script src="/static/retro-cursor.js"></script>
+    <script src="/static/notes-refresh.js"></script>
+    <script src="/static/production-config.js"></script>
+</head>
+
+<body bgcolor="#E6E6FA">
+    <!-- Header -->
+    <table width="100%" cellpadding="10" cellspacing="0">
+        <tr>
+            <td bgcolor="#4169E1" align="center">
+                <font size="5" color="white"><b>WRITE A NOTE FOR SALMAN</b></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <a href="/">
+                    <font color="blue"><u>← Back to Home</u></font>
+                </a>
+                <br><br>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Mobile Toggle Button -->
+    <div class="mobile-toggle-container">
+        <button id="toggle-write-mode" class="mobile-toggle-btn" onclick="openMobileModal()">
+            <span id="toggle-text">📝 Write a Note</span>
+        </button>
+    </div>
+
+    <!-- Desktop Layout (hidden on mobile) -->
+    <div class="desktop-layout">
+        <div class="main-container">
+            <!-- Top Section - Resizable Container -->
+            <div class="resizable-container" id="top-container">
+                <!-- Horizontal content wrapper for notes and form -->
+                <div class="horizontal-content">
+                    <!-- Left Section - Notes Wall -->
+                    <div id="notes-section" class="notes-section">
+                        <div class="notes-content">
+                            <center>
+                                <font size="4"><b>💌 Messages for Salman 💌</b></font>
+                            </center>
+                            <br>
+                            <div id="notes-wall-desktop" class="notes-wall" style="position: relative;"
+                                hx-get="/api/messages/all" hx-trigger="load, refresh from:body" hx-swap="innerHTML">
+                                <div class="zoom-controls">
+                                    <button class="zoom-btn"
+                                        onclick="window.pannableInstances.get('#notes-wall-desktop')?.zoomIn()"
+                                        title="Zoom In">+</button>
+                                    <button class="zoom-btn"
+                                        onclick="window.pannableInstances.get('#notes-wall-desktop')?.zoomOut()"
+                                        title="Zoom Out">−</button>
+                                    <button class="zoom-btn"
+                                        onclick="window.pannableInstances.get('#notes-wall-desktop')?.resetView()"
+                                        title="Reset View">⌂</button>
+                                </div>
+                                <center>
+                                    <font color="gray">Loading messages...</font>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vertical Resizer Handle -->
+                    <div class="vertical-resizer" id="vertical-resizer"></div>
+
+                    <!-- Right Section - Note Form -->
+                    <div id="form-section" class="form-section">
+                        <div class="form-content">
+                            <center>
+                                <font size="3"><b>📝 LEAVE YOUR NOTE</b></font>
+                                <br><br>
+                            </center>
+
+                            <form hx-post="/api/notes" hx-target="#form-result-desktop" hx-swap="none"
+                                hx-on::after-request="if(event.detail.successful) { window.refreshNotesWalls?.() || window.location.reload(); } else { document.getElementById('form-result-desktop').innerHTML = '<font color=red>Error submitting note. Please try again.</font>'; }">
+
+                                <b>Your Name:</b><br>
+                                <input type="text" name="senderName" required
+                                    style="width: 100%; border: 1px solid black; padding: 5px;"
+                                    placeholder="Enter your name"
+                                    onkeydown="if(event.key==='Enter'){event.preventDefault(); this.form.requestSubmit();}">
+                                <br><br>
+
+                                <b>Your Message:</b><br>
+                                <textarea name="message" required rows="4"
+                                    style="width: 100%; height: 200px; border: 1px solid black; padding: 5px; font-family: 'Courier New', monospace; resize: none;"
+                                    placeholder="Write your message for Salman..."
+                                    onkeydown="if(event.key==='Enter' && event.ctrlKey){event.preventDefault(); this.form.requestSubmit();}"></textarea>
+                                <br><br>
+
+                                <div id="form-result-desktop"></div>
+                                <br>
+                                <small><i>Tip: Press Ctrl+Enter to submit</i></small>
+
+                                <center>
+                                    <input type="submit" value="📝 POST YOUR NOTE"
+                                        style="background-color: #FFD700; border: 2px solid black; padding: 10px; font-weight: bold; cursor: pointer;">
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fixed instruction panel inside resizable container -->
+                <div class="instruction-panel" id="instruction-panel">
+                    <div class="instruction-panel-content">
+                        <center>
+                            <font size="2" color="gray">
+                                <i>Drag notes wall to pan • Mouse wheel to zoom • Click drag divider to resize
+                                    sections</i>
+                            </font>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Layout -->
+    <div class="mobile-layout">
+        <!-- Mobile Notes Browsing (Full Screen) -->
+        <div class="mobile-browse-section">
+            <center>
+                <font size="4"><b>💌 Messages for Salman 💌</b></font>
+                <br><br>
+            </center>
+            <div id="notes-wall-mobile" class="notes-wall mobile-notes-wall" style="position: relative;"
+                hx-get="/api/messages/all" hx-trigger="load, refresh from:body" hx-swap="innerHTML">
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="window.pannableInstances.get('#notes-wall-mobile')?.zoomIn()"
+                        title="Zoom In">+</button>
+                    <button class="zoom-btn" onclick="window.pannableInstances.get('#notes-wall-mobile')?.zoomOut()"
+                        title="Zoom Out">−</button>
+                    <button class="zoom-btn" onclick="window.pannableInstances.get('#notes-wall-mobile')?.resetView()"
+                        title="Reset View">⌂</button>
+                </div>
+                <center>
+                    <font color="gray">Loading messages...</font>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Modal -->
+    <div id="mobile-modal" class="mobile-modal" onclick="closeMobileModal(event)">
+        <div class="mobile-modal-content" onclick="event.stopPropagation()">
+            <div class="mobile-modal-header">
+                <font size="3" color="black" face="Times New Roman, serif"><b>📝 LEAVE YOUR NOTE</b></font>
+                <button class="mobile-modal-close" onclick="closeMobileModal()">&times;</button>
+            </div>
+
+            <div class="mobile-modal-body">
+                <form hx-post="/api/notes" hx-target="#form-result-modal" hx-swap="none"
+                    hx-on::after-request="if(event.detail.successful) { window.refreshNotesWalls?.() || window.location.reload(); } else { document.getElementById('form-result-modal').innerHTML = '<font color=red>Error submitting note. Please try again.</font>'; }">
+
+                    <b style="font-family: 'Times New Roman', serif;">Your Name:</b><br>
+                    <input type="text" name="senderName" required
+                        style="width: 100%; border: 1px solid black; padding: 5px; font-family: 'Times New Roman', serif;"
+                        placeholder="Enter your name"
+                        onkeydown="if(event.key==='Enter'){event.preventDefault(); this.form.requestSubmit();}">
+                    <br><br>
+
+                    <b style="font-family: 'Times New Roman', serif;">Your Message:</b><br>
+                    <input type="text" name="message" required
+                        style="width: 100%; height: 200px; border: 1px solid black; padding: 5px; font-family: 'Times New Roman', serif;"
+                        placeholder="Write your message for Salman..."
+                        onkeydown="if(event.key==='Enter'){event.preventDefault(); this.form.requestSubmit()}">
+                    <br><br>
+
+                    <div id="form-result-modal"></div>
+                    <br>
+                    <small><i>Tip: Press Enter to submit (single line)</i></small>
+
+                    <center>
+                        <input type="submit" value="📝 POST YOUR NOTE"
+                            style="background-color: #FFD700; border: 2px solid black; padding: 10px; font-weight: bold; cursor: pointer; font-family: 'Times New Roman', serif;">
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openMobileModal() {
+            const modal = document.getElementById('mobile-modal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeMobileModal(event) {
+            // Only close if clicking the backdrop or close button
+            if (!event || event.target.id === 'mobile-modal' || event.target.classList.contains('mobile-modal-close')) {
+                const modal = document.getElementById('mobile-modal');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        }
+
+
+        // Initialize pannable notes walls
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize both desktop and mobile pannable walls
+            initPannableNotesWall('#notes-wall-desktop');
+            initPannableNotesWall('#notes-wall-mobile');
+
+            // Re-initialize after HTMX updates
+            document.body.addEventListener('htmx:afterSwap', function () {
+                initPannableNotesWall('#notes-wall-desktop');
+                initPannableNotesWall('#notes-wall-mobile');
+            });
+        });
+
+        // Vertical resizing functionality (desktop only)
+        document.addEventListener('DOMContentLoaded', function () {
+            const verticalResizer = document.getElementById('vertical-resizer');
+            const notesSection = document.getElementById('notes-section');
+            const formSection = document.getElementById('form-section');
+            const horizontalContent = document.querySelector('.horizontal-content');
+
+            let isVerticalResizing = false;
+
+            // Initialize vertical resizer position
+            function updateResizerPosition() {
+                if (verticalResizer && notesSection) {
+                    const notesWidth = notesSection.offsetWidth;
+                    verticalResizer.style.left = notesWidth + 'px';
+                }
+            }
+
+            // Set initial position
+            updateResizerPosition();
+
+            // Update resizer position on window resize
+            window.addEventListener('resize', updateResizerPosition);
+
+            // Vertical resizing (left-right between notes and form)
+            if (verticalResizer && notesSection && formSection && horizontalContent) {
+                verticalResizer.addEventListener('mousedown', function (e) {
+                    isVerticalResizing = true;
+                    document.body.style.cursor = 'col-resize';
+                    document.body.style.userSelect = 'none';
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', function (e) {
+                    if (!isVerticalResizing) return;
+
+                    const containerRect = horizontalContent.getBoundingClientRect();
+                    const containerWidth = containerRect.width;
+                    const mouseX = e.clientX - containerRect.left;
+
+                    // Calculate percentages (minimum 20%, maximum 80% for each section)
+                    let notesPercent = (mouseX / containerWidth) * 100;
+                    notesPercent = Math.max(20, Math.min(80, notesPercent));
+                    const formPercent = 100 - notesPercent;
+
+                    notesSection.style.width = notesPercent + '%';
+                    formSection.style.width = formPercent + '%';
+
+                    // Update resizer position
+                    updateResizerPosition();
+                });
+
+                document.addEventListener('mouseup', function () {
+                    if (isVerticalResizing) {
+                        isVerticalResizing = false;
+                        document.body.style.cursor = '';
+                        document.body.style.userSelect = '';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

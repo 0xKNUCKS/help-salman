@@ -1,0 +1,21 @@
+3:07:26 PM: SECRETS_SCAN_OMIT_PATHS override option set to: README.md,dev.ps1,server.js,templates/messages.html
+3:07:26 PM: ​
+3:07:27 PM: ​
+3:07:27 PM: ❯ Scanning complete. 72 file(s) scanned. Secrets scanning found 2 instance(s) of secrets in build output or repo code.
+3:07:27 PM: ​
+3:07:27 PM: Secret env var "NODE_ENV"'s value detected:
+  found value at line 3 in security.js
+3:07:27 PM: Secret env var "PORT"'s value detected:
+  found value at line 6381 in .netlify/plugins/package-lock.json
+3:07:27 PM:   found value at line 6786 in .netlify/plugins/package-lock.json
+3:07:27 PM:   found value at line 7015 in .netlify/plugins/package-lock.json
+3:07:27 PM:   found value at line 7016 in .netlify/plugins/package-lock.json
+3:07:27 PM:   found value at line 136 in static/donation.js
+3:07:27 PM: ​
+3:07:27 PM: To prevent exposing secrets, the build will fail until these secret values are not found in build output or repo files.
+3:07:27 PM: ​
+3:07:27 PM: If these are expected, use SECRETS_SCAN_OMIT_PATHS, SECRETS_SCAN_OMIT_KEYS, or SECRETS_SCAN_ENABLED to prevent detecting.
+3:07:27 PM: ​
+3:07:27 PM: For more information on secrets scanning, see the Netlify Docs: https://ntl.fyi/configure-secrets-scanning
+3:07:27 PM: ​
+3:07:27 PM: Secrets scanning detected secrets in files during build.     

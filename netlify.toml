@@ -1,0 +1,14 @@
+[build]
+  # This is a Node.js application, not a static site
+  command = "npm install"
+  publish = "."
+
+[build.environment]
+  # Exclude files that contain environment variable references from secrets scanning
+  SECRETS_SCAN_OMIT_PATHS = "README.md,dev.ps1,server.js,templates/messages.html,security.js,static/donation.js,.netlify/**"
+
+# Redirect all requests to index since this needs a server
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

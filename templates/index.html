@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Notepad 3.1">
+    <meta name="author" content="Webmaster Salman">
+    <meta name="keywords" content="salman, donations, help, support, 90s website, retro">
+    <meta name="description" content="Support Salman through these difficult times - A genuine 90s experience">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Support Salman - Donation Page</title>
+    <!-- Best viewed in Netscape Navigator 4.0+ at 800x600 resolution -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/donation.js"></script>
+    <script src="/static/carousel.js"></script>
+    <script src="/static/pannable.js"></script>
+    <script src="/static/retro-sounds.js"></script>
+    <script src="/static/retro-cursor.js"></script>
+    <script src="/static/notes-refresh.js"></script>
+    <script src="/static/production-config.js"></script>
+    <script>
+        // Index page - no pannable functionality
+        // Users must visit /write-note to access full interactive notes wall
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Add retro page counter
+            const counter = localStorage.getItem('pageVisits') || '000001';
+            const newCount = String(parseInt(counter) + 1).padStart(6, '0');
+            localStorage.setItem('pageVisits', newCount);
+            
+            // Create visitor counter display
+            const counterDiv = document.createElement('div');
+            counterDiv.innerHTML = `
+                <center>
+                    <table bgcolor="black" cellpadding="3" cellspacing="1">
+                        <tr><td bgcolor="#00FF00" align="center">
+                            <font face="Courier New" size="1" color="black">
+                                <blink>VISITOR #${newCount}</blink>
+                            </font>
+                        </td></tr>
+                    </table>
+                </center>
+            `;
+            document.body.appendChild(counterDiv);
+        });
+    </script>
+</head>
+
+<body bgcolor="#ADD8E6">
+    <table width="100%" cellpadding="10" cellspacing="0" bgcolor="#FF6347">
+        <tr>
+            <td align="center">
+                <font size="6" color="white"><b>💰 SUPPORT SALMAN 💰</b></font>
+            </td>
+            <td align="right">
+                <a href="/gallery">
+                    <font color="yellow"><u><b>Gallery</b></u></font>
+                </a>
+                &nbsp;&nbsp;
+                <a href="/write-note">
+                    <font color="yellow"><u><b>Write a Note</b></u></font>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <center>
+        <table width="80%" cellpadding="20" cellspacing="0" bgcolor="white" border="2">
+            <tr>
+                <td align="center">
+                    <font size="5" color="red"><b>🆘 HELP MAKE A DIFFERENCE 🆘</b></font>
+                    <br><br>
+                    <font size="3">
+                        Salman regularly faces <b>ظلم</b> from his peers...<br>
+                        Your support can help him through these difficult times!
+                    </font>
+                    <br><br><br>
+
+                    <table cellpadding="10" cellspacing="5">
+                        <tr>
+                            <td>
+                                <input type="button" value="💝 DONATE NOW"
+                                    style="background-color: #32CD32; color: white; font-weight: bold; padding: 15px; border: 3px solid black; font-size: 14px; cursor: pointer;">
+                            </td>
+                            <td>
+                                <a href="/write-note">
+                                    <input type="button" value="📝 WRITE A NOTE FOR SALMAN"
+                                        style="background-color: #FFFF00; color: black; font-weight: bold; padding: 15px; border: 3px solid black; font-size: 14px; cursor: pointer;">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <br><br>
+
+    <center>
+        <table width="80%" cellpadding="15" cellspacing="0" bgcolor="#FFB6C1" border="2">
+            <tr>
+                <td align="center">
+                    <font size="4" color="purple"><b>🎬 MEET SALMAN 🎬</b></font>
+                    <br>
+                    <font size="2"><i>Here are some videos of me!</i></font>
+                    <br><br>
+
+                    <table bgcolor="white" border="1" cellpadding="15">
+                        <tr>
+                            <td align="center">
+                                <div class="video-carousel-container">
+                                    <input type="button" value="◄" id="prev-btn"
+                                        style="background-color: #FF6347; color: white; border: 2px solid black; padding: 10px 15px; margin: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+
+                                    <div id="video-content" style="display: inline-block; margin: 0 15px;">
+                                        <iframe id="current-video" width="400" height="300" src="" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen
+                                            referrerpolicy="strict-origin-when-cross-origin"
+                                            style="border: 3px solid black;">
+                                        </iframe>
+                                    </div>
+
+                                    <input type="button" value="►" id="next-btn"
+                                        style="background-color: #FF6347; color: white; border: 2px solid black; padding: 10px 15px; margin: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                                </div>
+                                <br>
+                                <div id="video-title" style="font-weight: bold; color: #333; margin-top: 10px;">
+                                    Loading video...
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <br><br>
+
+
+    <center>
+        <table width="80%" cellpadding="15" cellspacing="0" bgcolor="#98FB98" border="2">
+            <tr>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <font size="4" color="darkgreen"><b>📮 Recent Messages 📮</b></font>
+                            </td>
+                            <td align="right">
+                                <a href="/write-note">
+                                    <font color="blue"><u>View All Messages →</u></font>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <div id="recent-messages" class="notes-wall-static"
+                        style="height: 300px; position: relative; overflow: auto;"
+                        hx-get="/api/messages/recent" hx-trigger="load, refresh from:body" hx-swap="innerHTML">
+                        <center>
+                            <font color="gray">Loading recent messages...</font>
+                        </center>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <br><br>
+
+    <center>
+        <font size="1" color="gray">
+            <marquee width="50%" behavior="scroll" direction="left">
+                ⭐ Thank you for visiting Salman's support page! Special thanks to the camerawoman and interviewer! ⭐
+            </marquee>
+            <br>
+            <font face="Times New Roman" size="1" color="#666666">
+                <i>This page is enhanced for <blink>Netscape Navigator 4.0+</blink></i><br>
+                Last updated: <span id="last-updated"></span> | Webmaster: Salman
+            </font>
+        </font>
+    </center>
+    
+    <script>
+        if(document.getElementById('last-updated')) {
+            document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
+        }
+    </script>
+</body>
+
+</html>

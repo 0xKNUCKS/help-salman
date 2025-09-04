@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="HotDog Web Editor Pro">
+    <meta name="author" content="Webmaster Salman">
+    <meta name="keywords" content="salman, gallery, photos, memories, 90s website">
+    <meta name="description" content="Salman's Photo Gallery - A collection of memories">
+    <title>Salman's Gallery - Photo Collection</title>
+    <!-- Created with passion in Notepad.exe -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/gallery.js"></script>
+    <script src="/static/retro-sounds.js"></script>
+    <script src="/static/retro-cursor.js"></script>
+    <script src="/static/notes-refresh.js"></script>
+    <script src="/static/production-config.js"></script>
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .photo-card {
+            background: white;
+            border: 3px solid black;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 0px #000;
+            transition: transform 0.2s;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        
+        .instruction-panel {
+            background: #f5f5f5;
+            border: 2px solid #333;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #333;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Photo Modal Styles */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+        
+        .photo-modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+        }
+        
+        .photo-modal img {
+            max-width: 100%;
+            max-height: 80vh;
+            border: 3px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        
+        .photo-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: Arial;
+        }
+        
+        .photo-modal-close:hover {
+            color: #ff6347;
+        }
+        
+        .photo-card img {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body bgcolor="#ADD8E6">
+    <table width="100%" cellpadding="10" cellspacing="0" bgcolor="#FF6347">
+        <tr>
+            <td align="center">
+                <font size="6" color="white"><b>📸 SALMAN'S GALLERY 📸</b></font>
+            </td>
+            <td align="right">
+                <a href="/">
+                    <font color="yellow"><u><b>← Back Home</b></u></font>
+                </a>
+                &nbsp;&nbsp;
+                <a href="/write-note">
+                    <font color="yellow"><u><b>Write a Note</b></u></font>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <center>
+        <table width="90%" cellpadding="20" cellspacing="0" bgcolor="white" border="2">
+            <tr>
+                <td align="center">
+                    <font size="4" color="purple"><b>🖼️ PHOTO COLLECTION 🖼️</b></font>
+                    <br>
+                    <font size="2"><i>A glimpse into Salman's world through pictures!</i></font>
+                    <br><br>
+                    
+                    <div class="instruction-panel">
+                        Click any photo to view full size • Press ESC or click outside to close
+                    </div>
+                    
+                    <div class="gallery-grid" id="photo-gallery">
+                        <!-- Photos will be loaded here by gallery.js -->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <br><br>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="photo-modal">
+        <div class="photo-modal-content">
+            <span class="photo-modal-close">&times;</span>
+            <img id="modalPhoto" src="" alt="Enlarged Photo">
+        </div>
+    </div>
+
+    <center>
+        <font size="1" color="gray">
+            <marquee width="50%" behavior="scroll" direction="left">
+                📸 Salman's Photo Gallery - Capturing moments and memories! 📸
+            </marquee>
+        </font>
+    </center>
+</body>
+
+</html>

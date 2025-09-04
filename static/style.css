@@ -1,0 +1,1104 @@
+/* Early web vibes */
+body {
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mobile-first responsive design while maintaining retro style */
+@media screen and (max-width: 768px) {
+    /* Adjust table widths for mobile */
+    table[width="80%"] {
+        width: 95% !important;
+    }
+    
+    /* Make header more mobile-friendly */
+    table[bgcolor="#FF6347"] td {
+        padding: 8px !important;
+        font-size: 18px !important;
+    }
+    
+    /* Stack navigation on mobile */
+    table[bgcolor="#FF6347"] tr td:last-child {
+        display: block;
+        text-align: center !important;
+        padding-top: 5px;
+    }
+    
+    /* Adjust button container for mobile */
+    table[cellpadding="10"][cellspacing="5"] {
+        width: 100%;
+    }
+    
+    table[cellpadding="10"][cellspacing="5"] tr {
+        display: block;
+    }
+    
+    table[cellpadding="10"][cellspacing="5"] tr td {
+        display: block;
+        padding: 5px !important;
+        text-align: center;
+    }
+    
+    /* Make buttons full-width and touch-friendly on mobile */
+    input[type="button"] {
+        width: 100% !important;
+        padding: 18px !important;
+        font-size: 16px !important;
+        margin: 5px 0 !important;
+        box-sizing: border-box;
+        min-height: 50px;
+    }
+    
+    /* Adjust font sizes for mobile readability */
+    font[size="6"] {
+        font-size: 24px !important;
+    }
+    
+    font[size="5"] {
+        font-size: 20px !important;
+    }
+    
+    font[size="4"] {
+        font-size: 18px !important;
+    }
+    
+    font[size="3"] {
+        font-size: 16px !important;
+    }
+    
+    font[size="2"] {
+        font-size: 14px !important;
+    }
+    
+    font[size="1"] {
+        font-size: 12px !important;
+    }
+    
+    /* Mobile video carousel adjustments */
+    .video-carousel-container {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    #current-video {
+        width: 300px !important;
+        height: 225px !important;
+    }
+    
+    /* Mobile-friendly video carousel controls */
+    #prev-btn, #next-btn {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+        margin: 8px !important;
+        min-height: 44px;
+    }
+}
+
+/* Pannable notes wall map (for write-note page) */
+.notes-wall {
+    position: relative;
+    min-height: 300px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="%23ffffff"/><circle cx="2" cy="2" r="1" fill="%23f0f0f0"/></svg>') repeat;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+}
+
+.notes-wall:active {
+    cursor: grabbing;
+}
+
+/* Static notes wall (for index page) */
+.notes-wall-static {
+    position: relative;
+    min-height: 300px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="%23ffffff"/><circle cx="2" cy="2" r="1" fill="%23f0f0f0"/></svg>') repeat;
+    overflow: auto;
+    padding: 10px;
+}
+
+.notes-canvas {
+    position: relative;
+    width: 2000px;
+    height: 2000px;
+    transition: transform 0.1s ease-out;
+    transform-origin: 0 0;
+    will-change: transform;
+}
+
+/* Zoom controls */
+.zoom-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 20;
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.zoom-btn:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
+
+.note {
+    position: absolute;
+    background-color: #FFFF99;
+    border: 2px solid black;
+    padding: 8px 12px;
+    font-family: 'Courier New', monospace;
+    text-align: left;
+    transform-origin: center center;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, z-index 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.note:hover {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+    z-index: 100;
+}
+
+.note-size-1 {
+    width: 120px;
+    height: 80px;
+    font-size: 11px;
+}
+
+.note-size-2 {
+    width: 140px;
+    height: 100px;
+    font-size: 12px;
+}
+
+.note-size-3 {
+    width: 160px;
+    height: 120px;
+    font-size: 13px;
+}
+
+.note-size-4 {
+    width: 180px;
+    height: 90px;
+    font-size: 12px;
+}
+
+/* Post-it notes for recent messages */
+.post-it {
+    position: relative;
+    background-color: #FFFF99;
+    border: 2px solid black;
+    padding: 8px 12px;
+    margin: 10px;
+    font-family: 'Courier New', monospace;
+    text-align: left;
+    transform-origin: center center;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, z-index 0.2s ease;
+    cursor: pointer;
+    display: inline-block;
+    width: calc(33.33% - 20px);
+    max-width: 100%;
+    box-sizing: border-box;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.post-it:hover {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+    z-index: 100;
+}
+
+/* Mobile note adjustments */
+@media screen and (max-width: 768px) {
+    .notes-wall {
+        min-height: 400px;
+        overflow: auto;
+    }
+    
+    .post-it {
+        width: calc(50% - 20px);
+    }
+    
+    .note-size-1 {
+        width: 100px;
+        height: 70px;
+        font-size: 10px;
+    }
+    
+    .note-size-2 {
+        width: 110px;
+        height: 80px;
+        font-size: 11px;
+    }
+    
+    .note-size-3 {
+        width: 120px;
+        height: 90px;
+        font-size: 12px;
+    }
+    
+    .note-size-4 {
+        width: 130px;
+        height: 75px;
+        font-size: 11px;
+    }
+    
+    .note-content {
+        line-height: 1.2;
+    }
+    
+    .note-sender {
+        font-size: 9px;
+    }
+    
+    .note-date {
+        font-size: 8px;
+    }
+}
+
+.note-color-yellow { background-color: #FFFF99; }
+.note-color-pink { background-color: #FFB6C1; }
+.note-color-green { background-color: #98FB98; }
+.note-color-orange { background-color: #FFD700; }
+.note-color-cyan { background-color: #E0FFFF; }
+
+.note-rotate-1 { transform: rotate(-8deg); }
+.note-rotate-2 { transform: rotate(5deg); }
+.note-rotate-3 { transform: rotate(-3deg); }
+.note-rotate-4 { transform: rotate(12deg); }
+.note-rotate-5 { transform: rotate(-15deg); }
+.note-rotate-6 { transform: rotate(7deg); }
+
+.note-content {
+    margin-bottom: 6px;
+    overflow: hidden;
+    word-wrap: break-word;
+    line-height: 1.3;
+}
+
+.note-sender {
+    font-size: 10px;
+    font-style: italic;
+    text-align: right;
+    margin-top: auto;
+}
+
+.note-date {
+    font-size: 9px;
+    color: #666;
+    text-align: right;
+}
+
+/* Video carousel styling with retro aesthetic */
+.video-carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+#video-content {
+    display: inline-block;
+}
+
+#current-video {
+    width: 400px;
+    height: 300px;
+    border: 3px solid black;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    background-color: #f0f0f0;
+}
+
+#video-title {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    text-align: center;
+    background-color: #D3D3D3;
+    padding: 8px;
+    border: 1px solid black;
+    min-height: 20px;
+}
+
+#prev-btn, #next-btn {
+    transition: all 0.3s ease;
+}
+
+#prev-btn:hover, #next-btn:hover {
+    background-color: #FF4500 !important;
+    transform: scale(1.1);
+    color: white !important;
+}
+
+/* Early web blink effect (use sparingly!) */
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Donation message animations */
+.donation-message {
+    position: relative;
+    margin: 15px auto;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+}
+
+.donation-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.donation-message.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.donation-text {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border: 3px solid black;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    overflow: hidden;
+}
+
+.donation-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.withdrawal-quote {
+    display: block;
+    font-weight: bold;
+    color: #8B0000;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.donation-amount {
+    display: block;
+    font-weight: bold;
+    color: #006400;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Mobile adjustments for donation messages */
+@media screen and (max-width: 768px) {
+    .donation-message {
+        margin: 10px 5px;
+        max-width: 95%;
+    }
+    
+    .donation-text {
+        padding: 12px;
+        margin: 5px;
+    }
+    
+    .withdrawal-quote {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+    
+    .donation-amount {
+        font-size: 14px;
+    }
+}
+
+/* Enhance donate button with hover effects */
+input[value="💝 DONATE NOW"]:hover {
+    background-color: #228B22 !important;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+input[value="💝 DONATE NOW"]:active {
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* Monospace font for all input fields and placeholders for retro feel */
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="number"], 
+input[type="tel"], 
+input[type="url"], 
+input[type="search"],
+textarea {
+    font-family: 'Courier New', monospace !important;
+}
+
+input[type="text"]::placeholder, 
+input[type="email"]::placeholder, 
+input[type="password"]::placeholder, 
+input[type="number"]::placeholder, 
+input[type="tel"]::placeholder, 
+input[type="url"]::placeholder, 
+input[type="search"]::placeholder,
+textarea::placeholder {
+    font-family: 'Courier New', monospace !important;
+}
+
+/* Mobile-First Note Writing Styles */
+.mobile-toggle-container {
+    display: none;
+    text-align: center;
+    padding: 15px;
+    background-color: #E6E6FA;
+}
+
+.mobile-toggle-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: 2px solid black;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.mobile-toggle-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+}
+
+/* Mobile Modal Styles */
+.mobile-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-modal-content {
+    background-color: #FFFF99;
+    border: 2px solid black;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    animation: modalSlideIn 0.3s ease-out;
+    font-family: 'Times New Roman', serif;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.mobile-modal-header {
+    background-color: #FFD700;
+    border-bottom: 2px solid black;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-modal-close:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 50%;
+}
+
+.mobile-modal-body {
+    padding: 15px;
+    font-family: 'Times New Roman', serif;
+}
+
+.modal-input, .modal-textarea {
+    width: 100%;
+    border: 1px solid black;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace !important;
+}
+
+.modal-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.modal-submit-btn {
+    background-color: #FFD700;
+    border: 2px solid black;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+.modal-submit-btn:hover {
+    background-color: #FFC107;
+    transform: scale(1.02);
+}
+
+.mobile-layout {
+    display: none;
+}
+
+.desktop-layout {
+    display: block;
+}
+
+/* Resizable Desktop Layout */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 750px;
+    width: 100%;
+    border: 2px solid black;
+}
+
+.resizable-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    min-height: 300px;
+}
+
+/* Horizontal wrapper for notes and form sections */
+.horizontal-content {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    position: relative;
+}
+
+.notes-section {
+    width: 65%;
+    background-color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.notes-content {
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.form-section {
+    width: 35%;
+    background-color: #FFFF99;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid black;
+    position: relative;
+}
+
+.form-content {
+    padding: 15px;
+    height: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.vertical-resizer {
+    width: 5px;
+    background-color: #ccc;
+    cursor: col-resize;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    transition: background-color 0.2s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.vertical-resizer:hover {
+    background-color: #999;
+}
+
+.vertical-resizer::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 30px;
+    background-color: #666;
+    border-radius: 1px;
+}
+
+.vertical-resizer::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 30px;
+    background-color: #666;
+    border-radius: 1px;
+}
+
+.horizontal-resizer {
+    height: 5px;
+    background-color: #ccc;
+    cursor: row-resize;
+    position: relative;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.horizontal-resizer:hover {
+    background-color: #999;
+}
+
+.horizontal-resizer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background-color: #666;
+    border-radius: 1px;
+}
+
+.horizontal-resizer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background-color: #666;
+    border-radius: 1px;
+}
+
+/* Fixed instruction panel at bottom of resizable layout */
+.instruction-panel {
+    background-color: #f5f5f5;
+    border-top: 2px solid black;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 10px;
+}
+
+.instruction-panel-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+/* Tablet responsive rules (770px to 768px) */
+@media screen and (max-width: 770px) and (min-width: 769px) {
+    .desktop-layout {
+        display: none !important;
+    }
+    
+    .mobile-layout {
+        display: block !important;
+    }
+    
+    .mobile-toggle-container {
+        display: block !important;
+    }
+}
+
+
+.mobile-browse-section {
+    background-color: white;
+    border: 2px solid black;
+    margin: 10px;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.mobile-notes-wall {
+    min-height: 400px;
+    max-height: 70vh;
+    overflow-y: auto;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="%23ffffff"/><circle cx="2" cy="2" r="1" fill="%23f0f0f0"/></svg>') repeat;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+}
+
+/* Mobile-specific responsive rules */
+@media screen and (max-width: 770px) {
+    .desktop-layout {
+        display: none !important;
+    }
+    
+    .mobile-layout {
+        display: block !important;
+    }
+    
+    .mobile-toggle-container {
+        display: block !important;
+    }
+    
+    /* Hide desktop table layout completely on mobile */
+    table[height="500"] {
+        display: none !important;
+    }
+    
+    /* Mobile browse section takes full space */
+    .mobile-browse-section {
+        min-height: 85vh;
+        max-height: 85vh;
+        overflow-y: auto;
+        margin-top: 5px;
+    }
+    
+    /* Improve mobile note sizes with better spacing */
+    .mobile-notes-wall .note-size-1 {
+        width: 85px;
+        height: 55px;
+        font-size: 9px;
+        margin: 3px;
+    }
+    
+    .mobile-notes-wall .note-size-2 {
+        width: 95px;
+        height: 65px;
+        font-size: 10px;
+        margin: 3px;
+    }
+    
+    .mobile-notes-wall .note-size-3 {
+        width: 105px;
+        height: 75px;
+        font-size: 11px;
+        margin: 3px;
+    }
+    
+    .mobile-notes-wall .note-size-4 {
+        width: 115px;
+        height: 60px;
+        font-size: 10px;
+        margin: 3px;
+    }
+    
+    /* Better mobile note positioning */
+    .mobile-notes-wall .note {
+        position: absolute;
+    }
+    
+    /* Ensure form elements are touch-friendly */
+    .mobile-input:focus, .mobile-textarea:focus {
+        outline: none;
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+}
+
+/* =========================
+   RETRO ENHANCEMENTS
+   ========================= */
+
+/* System colors and retro button styling */
+.retro-button {
+    background: ButtonFace;
+    border: 2px outset ButtonShadow;
+    color: ButtonText;
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 12px;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.retro-button:hover {
+    background: ButtonHighlight;
+}
+
+.retro-button:active {
+    border: 2px inset ButtonShadow;
+    background: ButtonShadow;
+}
+
+/* Enhanced retro typography */
+.ascii-header {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    line-height: 1;
+    white-space: pre;
+    color: #0000FF;
+    text-align: center;
+}
+
+.retro-text-shadow {
+    text-shadow: 2px 2px 0px #000000;
+}
+
+.retro-glow {
+    text-shadow: 0 0 10px currentColor;
+}
+
+/* Blinking text effect */
+.blink {
+    animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+    to { visibility: hidden; }
+}
+
+/* Rainbow text effect */
+.rainbow-text {
+    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080);
+    background-size: 400% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-move 3s ease infinite;
+}
+
+@keyframes rainbow-move {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Under construction banner */
+.under-construction {
+    background: repeating-linear-gradient(
+        45deg,
+        #ffff00,
+        #ffff00 10px,
+        #000000 10px,
+        #000000 20px
+    );
+    color: #ff0000;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    border: 2px solid #ff0000;
+    animation: construction-flash 1s infinite;
+}
+
+@keyframes construction-flash {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.7; }
+}
+
+/* Retro loading animation */
+.retro-loading {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 16px;
+}
+
+.retro-loading div {
+    position: absolute;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background: #00ff00;
+    animation: retro-loading-animation 1.2s infinite ease-in-out;
+}
+
+.retro-loading div:nth-child(1) { left: 8px; animation-delay: -0.24s; }
+.retro-loading div:nth-child(2) { left: 24px; animation-delay: -0.12s; }
+.retro-loading div:nth-child(3) { left: 40px; animation-delay: 0s; }
+
+@keyframes retro-loading-animation {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* Visitor counter styling */
+.visitor-counter {
+    background: #000000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    padding: 3px 6px;
+    border: 1px solid #333333;
+    display: inline-block;
+    font-size: 11px;
+    text-align: center;
+    box-shadow: inset 0 0 3px #00ff00;
+}
+
+/* Retro scrollbar styling (webkit browsers) */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: #c0c0c0;
+    border: 1px inset #c0c0c0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #808080;
+    border: 1px outset #808080;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+::-webkit-scrollbar-corner {
+    background: #c0c0c0;
+}
+
+/* Retro form styling */
+.retro-form {
+    background: #c0c0c0;
+    border: 2px inset #c0c0c0;
+    padding: 10px;
+    font-family: 'MS Sans Serif', sans-serif;
+}
+
+.retro-input {
+    background: white;
+    border: 2px inset #c0c0c0;
+    font-family: 'Courier New', monospace;
+    padding: 2px 4px;
+}
+
+.retro-input:focus {
+    outline: 1px dotted #000000;
+}
+
+/* Typewriter effect */
+.typewriter {
+    overflow: hidden;
+    border-right: 2px solid #000000;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #000000; }
+}
+
+/* Mobile adjustments for retro elements */
+@media screen and (max-width: 768px) {
+    .ascii-header {
+        font-size: 8px;
+    }
+    
+    .typewriter {
+        font-size: 12px;
+    }
+    
+    .visitor-counter {
+        font-size: 10px;
+        padding: 2px 4px;
+    }
+}

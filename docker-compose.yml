@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - CONVEX_URL=${CONVEX_URL}
+    volumes:
+      - ./carousel-pic-ids.txt:/app/carousel-pic-ids.txt:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      timeout: 10s
+      interval: 30s
+      retries: 3
+      start_period: 40s
